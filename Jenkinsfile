@@ -3,14 +3,12 @@ pipeline {
 
     environment {
         APP_NAME = "jenkins-demo"
-        ENV_NAME = "dev"
+        DEPLOY_DIR = "/var/www/jenkins-demo"
     }
 
     stages {
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
-                echo "App: ${APP_NAME}"
-                echo "Environment: ${ENV_NAME}"
                 checkout scm
             }
         }
@@ -20,5 +18,16 @@ pipeline {
                 sh 'ls -la'
             }
         }
+
+        stage('Deploy') {
+            steps {
+                sh '''
+                  echo "Deploying application..."
+                  cp index.html $DEPLOY_DIR/
+                  echo "Deployment complete"
+                '''
+            }
+        }
     }
 }
+
