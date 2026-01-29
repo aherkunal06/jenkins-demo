@@ -1,24 +1,23 @@
 pipeline {
     agent any
 
+    environment {
+        APP_NAME = "jenkins-demo"
+        ENV_NAME = "dev"
+    }
+
     stages {
         stage('Checkout Code') {
             steps {
-                echo 'Pulling code from GitHub'
+                echo "App: ${APP_NAME}"
+                echo "Environment: ${ENV_NAME}"
                 checkout scm
             }
         }
 
         stage('Build') {
             steps {
-                echo 'Build stage running'
                 sh 'ls -la'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'No tests yet'
             }
         }
     }
